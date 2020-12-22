@@ -22,24 +22,9 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="569f28b1-b67b-47d4-8919-7409b164b618" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/CRAWL.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/main/UTIL.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/main/garanti-bbva.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/main/sa.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/main/sa1.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/deneme.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/multithread.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/oreelly.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/site_crawl.db" afterDir="false" />
+    <list default="true" id="569f28b1-b67b-47d4-8919-7409b164b618" name="Default Changelist" comment="fgcloud parallell process eklendi">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main/SikayetVarDataFetcher.py" beforeDir="false" afterPath="$PROJECT_DIR$/main/SikayetVarDataFetcher.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main/garanti-bbva.csv" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -109,6 +94,14 @@
       <option name="presentableId" value="Default" />
       <updated>1608671982970</updated>
     </task>
+    <task id="LOCAL-00001" summary="fgcloud parallell process eklendi">
+      <created>1608677376401</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1608677376401</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -124,24 +117,30 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="fgcloud parallell process eklendi" />
+    <option name="LAST_COMMIT_MESSAGE" value="fgcloud parallell process eklendi" />
   </component>
   <component name="WindowStateProjectService">
-    <state width="1659" height="295" key="GridCell.Tab.0.bottom" timestamp="1608677236953">
+    <state x="685" y="455" key="Github.Dialog.Accounts.Choose" timestamp="1608677384938">
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
-    <state width="1659" height="295" key="GridCell.Tab.0.bottom/0.0.1680.1050@0.0.1680.1050" timestamp="1608677236953" />
-    <state width="1659" height="295" key="GridCell.Tab.0.center" timestamp="1608677236951">
+    <state x="685" y="455" key="Github.Dialog.Accounts.Choose/0.0.1680.1050@0.0.1680.1050" timestamp="1608677384938" />
+    <state width="1659" height="295" key="GridCell.Tab.0.bottom" timestamp="1608678465946">
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
-    <state width="1659" height="295" key="GridCell.Tab.0.center/0.0.1680.1050@0.0.1680.1050" timestamp="1608677236951" />
-    <state width="1659" height="295" key="GridCell.Tab.0.left" timestamp="1608677236951">
+    <state width="1659" height="295" key="GridCell.Tab.0.bottom/0.0.1680.1050@0.0.1680.1050" timestamp="1608678465946" />
+    <state width="1659" height="295" key="GridCell.Tab.0.center" timestamp="1608678465945">
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
-    <state width="1659" height="295" key="GridCell.Tab.0.left/0.0.1680.1050@0.0.1680.1050" timestamp="1608677236951" />
-    <state width="1659" height="295" key="GridCell.Tab.0.right" timestamp="1608677236952">
+    <state width="1659" height="295" key="GridCell.Tab.0.center/0.0.1680.1050@0.0.1680.1050" timestamp="1608678465945" />
+    <state width="1659" height="295" key="GridCell.Tab.0.left" timestamp="1608678465944">
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
-    <state width="1659" height="295" key="GridCell.Tab.0.right/0.0.1680.1050@0.0.1680.1050" timestamp="1608677236952" />
+    <state width="1659" height="295" key="GridCell.Tab.0.left/0.0.1680.1050@0.0.1680.1050" timestamp="1608678465944" />
+    <state width="1659" height="295" key="GridCell.Tab.0.right" timestamp="1608678465946">
+      <screen x="0" y="0" width="1680" height="1050" />
+    </state>
+    <state width="1659" height="295" key="GridCell.Tab.0.right/0.0.1680.1050@0.0.1680.1050" timestamp="1608678465946" />
     <state width="1659" height="364" key="GridCell.Tab.1.bottom" timestamp="1608675164175">
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
@@ -158,23 +157,27 @@
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
     <state width="1659" height="364" key="GridCell.Tab.1.right/0.0.1680.1050@0.0.1680.1050" timestamp="1608675164175" />
+    <state x="440" y="265" key="Vcs.Push.Dialog.v2" timestamp="1608677379268">
+      <screen x="0" y="0" width="1680" height="1050" />
+    </state>
+    <state x="440" y="265" key="Vcs.Push.Dialog.v2/0.0.1680.1050@0.0.1680.1050" timestamp="1608677379268" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/main/SikayetVarDataFetcher.py</url>
-          <line>282</line>
+          <line>281</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/main/SikayetVarDataFetcher.py</url>
-          <line>94</line>
+          <line>93</line>
           <option name="timeStamp" value="2" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/main/SikayetVarDataFetcher.py</url>
-          <line>137</line>
+          <line>134</line>
           <option name="timeStamp" value="3" />
         </line-breakpoint>
       </breakpoints>

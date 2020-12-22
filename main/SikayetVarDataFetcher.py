@@ -91,9 +91,7 @@ def toList(s):
     return listToStr
 
 def extract_data(page):
-    print("starting extract")
     sikayet_url = domain + page
-    print('Okunan sayfa: ' + sikayet_url + '...')
     sikayet_source = simple_get(sikayet_url)
     sikayet_soup = BeautifulSoup(html_minify(sikayet_source), 'html.parser')
     artdic = {}
@@ -118,9 +116,8 @@ def extract_data(page):
         tags = []
         for a in hashtags[0].find_all('a', href=True):
             tags.append(a['title'])
-    except:
-        print("An exception occurred")
-    print(title)
+    except Exception as a:
+        print(a)
     tempdic["brand"]=brand
     tempdic["sikayet_url"] = sikayet_url
     tempdic["title"] = title
@@ -135,8 +132,8 @@ def extract_data(page):
     #insertdb(val)
     #return val
     artdic[sikayet_url] = tempdic
-    writeToDB(artdic)
-    return True
+    #writeToDB(artdic)
+    return artdic
 
 
 def insertdb(val):
@@ -178,11 +175,9 @@ def get_page_num(brand_soup):
 
 def get_item_url(page_num, brand_url):
     time.sleep(SLEEP_TIME)
-    print("I'm sleeping " + str(SLEEP_TIME))
     page_numbered_url = brand_url + '?page=' + str(page_num)
 
     log = '\n ' + str(page_numbered_url) + ' için ' + str(page_num) + '. sayfa okunuyor...\n'
-    print(log)
     page_source = simple_get(page_numbered_url)
     page_soup = BeautifulSoup(html_minify(page_source), 'html.parser')
     item_pages = []
@@ -206,8 +201,7 @@ def get_all_items_url(brand):
 
     last_page_no = get_page_num(brand_soup)
     items_url = []
-    print(last_page_no)
-    for x in range(1, 2):
+    for x in range(1, last_page_no):
         item_pages = get_item_url(x,brand_url)
         items_url=items_url+item_pages
     return items_url
@@ -228,35 +222,40 @@ def printqueue(queue, data):
     queue.put(data)
     return queue
 
-def writeToDB( resultArticleDetails):
+def writeToDB( resultArticleDetailsList):
     # Extract single elements
-    for value in resultArticleDetails.values():
-        str_articlenumber = value["sikayet_url"]
-        str_URL = value['sikayet_url']
-        str_title = value['title']
-        str_views = value['views']
-        str_pubdate = value['date']
-        str_text = value['description']
-        str_brand=value['brand']
-        try:
-            int_views = value['views']
-        except:
-            int_views = 0
-        Tag_list = value['tags']
-        # Create new Article Entity
-        Article = datastore.Entity(client.key('Article_ID', str_articlenumber), exclude_from_indexes=['Text'])
-        Article.update({
-            "URL": str_URL,
-            "Title": str_title,
-            "Views": str_views,
-            "PublishingDate": str_pubdate,
-            "Text": str_text,
-            "Claps": int_views,
-            "Tags": Tag_list,
+    articleList = []
 
-            "Brand": str_brand
-        })
-        client.put(Article)
+    for resultArticleDetails in resultArticleDetailsList:
+        for value in resultArticleDetails.values():
+            str_articlenumber = value["sikayet_url"]
+            str_URL = value['sikayet_url']
+            str_title = value['title']
+            str_views = value['views']
+            str_pubdate = value['date']
+            str_text = value['description']
+            str_brand = value['brand']
+            try:
+                int_views = value['views']
+            except:
+                int_views = 0
+            Tag_list = value['tags']
+            # Create new Article Entity
+            Article = datastore.Entity(client.key('Article_ID', str_articlenumber), exclude_from_indexes=['Text'])
+            Article.update({
+                "URL": str_URL,
+                "Title": str_title,
+                "Views": str_views,
+                "PublishingDate": str_pubdate,
+                "Text": str_text,
+                "Claps": int_views,
+                "Tags": Tag_list,
+
+                "Brand": str_brand
+            })
+            articleList.append(Article)
+
+    client.put_multi(articleList)
     return (True)
 
 import time
@@ -267,6 +266,7 @@ if __name__ == '__main__':
 
     start = time.time()
     print("hello")
+    print(start)
 
 
     brand_url = domain + '/' + brand
@@ -276,12 +276,11 @@ if __name__ == '__main__':
 
     last_page_no = get_page_num(brand_soup)
     items_url = []
-    print(last_page_no)
-    for x in range(1, 3):
+    for x in range(1, last_page_no):
+        print(x)
         item_pages = get_item_url(x,brand_url)
-        print(item_pages)
-        with Pool(3) as p:
-            print(p.map(extract_data, item_pages))
+        with Pool(1) as p:
+            writeToDB(p.map(extract_data, item_pages))
     end = time.time()
     print(end - start)
 """  alllinks=get_all_items_url(brand)
