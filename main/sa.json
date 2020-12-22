@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "delta-trees-295815",
+  "private_key_id": "ffa98f1b38e04ff41860975650b04a1c3e5f5dac",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQDGObn1gK+fCJhK\n+BTlcr3QvR39ro3X3QlbEqhacIO7s8dbUjJOPJZQmPk+EfuX6D+6MbsTILZjBJlb\ndOvKTUaGSSitsp1xGSCctYS7WwHG2SZ4LEvkLPqz0NAeMidEeZg0PAWFFVo2r25W\nA2h1GRRii4CWNnu5LDDqsIYhXvcDMk49Op/pVyzDqz6WigGP8yT/SfxIxUh45Dc8\nYg2wyCYLE3PTOUX8Om94IyQnYDjBRKd6Ht1qhuQg8vdXSvcmfejXG4gj3M2qhPEz\nnIMySeOXqMRj4+Ea/fBFd7vgVDoaWzg9js3Q4mCZyJjJZ/aujHyHdSYfEtqLBd/3\nIHWlfECnAgMBAAECggEAHI34QcCgi9zlw0xABlrPCSC/uelz5A1NPwyi/9QxcHqR\n/zpfUMcy3WK2lMBrvmg7CzawEi37gqwI7hRxBZq4IWQB3h5axmNY6qTN/VyQwZ+f\nsQlV2AVlX+h2nRhFxnwVoYCmnZMuhFjPy3LWO01k6FqG0sdVGfRJtPpqIqiBa2OJ\nrBNxOmMdjqovESDVm6aRy7V9MIv6NgyKC4uRnWAVkC0ktOG+i2k4T/PpkPAxOsyB\nqIa9eYQxPl60T6aqnBwt45Ll/0UolPXSv4ldcc0xFed2gpXONFM616Ar6vLhbDXj\n6Vpu+Y+yoAGm8nrwzmSdH7yr85FIGBx7hiv/FIfcUQKBgQD/tTegvVvnFJj3lmuw\nV+A778yZrwDWbpy4BUpo71e+bRrbkxgq//lHGfNkR8FoiDnLbDWyxLH3y1VcE3Um\nZq00dDE+Un0QTUz9cZ3xt+k1WmfSiWoU3rQKqj7PQ/irLjAglKjKo3ds1sYSGBOf\nndVlPQEDwHHV7YN7moH9rAdqEwKBgQDGc7K7ZxYxC4KjZZLmNAmmx5h6PtcnTkSH\nlTvpkgLT5WndTp2RlKgsL8rxSxTbYthyPCSf4B+ng9eQSDg9+PS3NpXJQw1YUvB6\n+qpRLgSM0d/o6/LOsMeGL72E9VVGdIMFBiJwCsxw2adjWNLQVM/e5YfdmFqrF6Cg\nxzgGGyVhnQJ/S+mAmjedEP0MbHQ7hB6Sczi9hOJvXTl5TShE7uIfKmk5j/YbNqjH\nWFRb7WlgAahvf/Sf/HJoYyf6L1uXa88PnILiG55hgnVwZc1VFm2CzlQIfnhNBeUX\njhL8koubRzZvEz0O3xmoWqdoJfb/3GL+9w8lPffj056vagJ0lNp9WQKBgQCFqnwi\nOab61dPiFpJBN5+glCOhgx4LvW3vHJdEFTKOYqFRjJgY7FXxnSdGKtobgpJjLxtE\nDAOGIwlYhyxKoZrCpKNy8hTU/tg3HQsGrsYly17TVckvamaZfSJboZsUX3m4Mo+T\ng9J72D4kbjlgVR/F9Df1C59WSg3I/SZBBpvBCQKBgQCMfpHzqJd9x0WFacTm8Zoi\nBabtGaICFcCgAvcWNtYjiOf7CPcGQI1/ThPhTKfqI2qbxMkBIuSK2LVnDwlSYxnv\nWxRVpg+9WZZSAg9fWqmkvRrPiD3cQoTwWAoBaRedwCtGkMQHMnNws4gxxF3N0Z7t\n+NASOk1kwN7IxW6PdHFW8A==\n-----END PRIVATE KEY-----\n",
+  "client_email": "datastore@delta-trees-295815.iam.gserviceaccount.com",
+  "client_id": "105374934526043599476",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/datastore%40delta-trees-295815.iam.gserviceaccount.com"
+}

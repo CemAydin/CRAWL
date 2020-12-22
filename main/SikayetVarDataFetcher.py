@@ -1,33 +1,45 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import time
+from queue import Queue
 
 import requests
 import codecs
 import csv
 
 import sys
-
+import openpyxl
+import  pandas as pd
+from pandas import ExcelWriter
+from google.cloud import datastore
+from google.auth import compute_engine
 SLEEP_TIME = 1
+import mysql.connector
+
+mydb = mysql.connector.connect(
+  host="localhost",
+  user="root",
+  password="1004cem+",
+  database="sikayet"
+)
+
+
+
+mycursor = mydb.cursor()
+mycursor.execute("SET AUTOCOMMIT=1")
 
 if sys.version_info[0] >= 3:
     unicode = str
-import os
-import sqlite3
-
-# create a default path to connect to and create (if necessary) a database
-# called 'database.sqlite3' in the same directory as this script
-DEFAULT_PATH = os.path.join(os.path.dirname(__file__), 'database.sqlite3')
 
 
-con = sqlite3.connect('/path/to/file/db.sqlite3')
 from htmlmin.minify import html_minify
+
+
 from requests.exceptions import RequestException
 from contextlib import closing
 from bs4 import BeautifulSoup
 
 
-# proxies = {'http': 'http://89.105.202.101:3128/'}
 
 def simple_get(url):
     """
@@ -63,35 +75,92 @@ def log_error(e):
     print(e)
 
 
+import mysql.connector
+
 domain = 'https://www.sikayetvar.com'
-brand_names = ['garanti-bbva']
+global credentials
+global client
+print("Setup Database Connection")
+credentials = compute_engine.Credentials()
+# service account
+client = datastore.Client.from_service_account_json('sa1.json')
 scraped_data = []
-def writeFile(filename, open_type="a", data=scraped_data):
-    with open(filename + ".csv", open_type, newline="") as csvfile:
-        writer = csv.writer(csvfile, delimiter=';', quotechar='"')
 
-        for row in data:
-            writer.writerow(row)
-        data.clear()
-        csvfile.close()
+def toList(s):
+    listToStr = ', '.join([str(elem) for elem in s])
+    return listToStr
 
-for brand in brand_names:
+def extract_data(page):
+    print("starting extract")
+    sikayet_url = domain + page
+    print('Okunan sayfa: ' + sikayet_url + '...')
+    sikayet_source = simple_get(sikayet_url)
+    sikayet_soup = BeautifulSoup(html_minify(sikayet_source), 'html.parser')
+    artdic = {}
+    tempdic = {}
 
-    brand_url = domain + '/' + brand
+    title = sikayet_soup.find('title')
+    if title != None:
+        title = title.text.strip('\n')
+        title = title.replace(' - Şikayetvar', '')
+    description = sikayet_soup.find('div', {'class': 'card-text'})
+    if description != None:
+        description = description.text.strip('\n')
+    date = sikayet_soup.find('span', {'class': 'info-icn time-tooltip'})
+    if date != None:
+        date = date['title']
+    views = sikayet_soup.find('span', {'class': 'js-view-count'})
+    if views != None:
+        find = views.find('span', {'class': 'count'})
+        views = find.text
+    try:
+        hashtags = sikayet_soup.find_all('div', {'class': 'detailComp-tags clearfix'})
+        tags = []
+        for a in hashtags[0].find_all('a', href=True):
+            tags.append(a['title'])
+    except:
+        print("An exception occurred")
+    print(title)
+    tempdic["brand"]=brand
+    tempdic["sikayet_url"] = sikayet_url
+    tempdic["title"] = title
+    tempdic["description"] = description
+    tempdic["views"] = views
+    tempdic["tags"] = toList(tags)
+    tempdic["date"] = date
 
-    brand_source = simple_get(brand_url)
-    brand_soup = BeautifulSoup(html_minify(brand_source), 'html.parser')
 
+    val = (brand, sikayet_url, title, description, views, toList(tags), date)
+    pages_result.append(val)
+    #insertdb(val)
+    #return val
+    artdic[sikayet_url] = tempdic
+    writeToDB(artdic)
+    return True
+
+
+def insertdb(val):
+    sql = """INSERT INTO `sikayet`.`sikayet_text`
+(
+`brand`,
+`URL`,
+`Title`,
+`Description`,
+`Views_count`,
+`Tags`,
+`zaman`) VALUES (%s,%s, %s,%s,%s,%s,%s)"""
+    print("insert ediyorum")
+    mycursor.execute(sql, val)
+    print("insert ettim")
+
+
+def get_page_num(brand_soup):
     pagination = brand_soup.find('nav', {'class': 'pagination-wrap'})
-
-    sikayet_no = 0
-
     """
     Markaya ait sayfa sayısının tespiti:
     İlk sayfanın değeri 0'dır.
     Eğer pagination değeri varsa +1 eklenir.
     """
-
     if pagination != None:
 
         num_of_pages = pagination.find_all('a')
@@ -104,96 +173,118 @@ for brand in brand_names:
 
     else:
         last_page_no = 2
-    headers = ['ID', 'Marka', 'Başlık', 'Açıklama', 'Tarih', 'Görüntüleme Sayısı', 'Etiketler']
-    writeFile(filename=brand, data=headers, open_type="w")
+    return  last_page_no
 
+
+def get_item_url(page_num, brand_url):
+    time.sleep(SLEEP_TIME)
+    print("I'm sleeping " + str(SLEEP_TIME))
+    page_numbered_url = brand_url + '?page=' + str(page_num)
+
+    log = '\n ' + str(page_numbered_url) + ' için ' + str(page_num) + '. sayfa okunuyor...\n'
+    print(log)
+    page_source = simple_get(page_numbered_url)
+    page_soup = BeautifulSoup(html_minify(page_source), 'html.parser')
+    item_pages = []
     """
-    Şikayetleri toplamak için
-    Sayfalara gidilir
-    pagination değeri yoksa sayfa sayısına 2 atanır
-    """
-
-
-    for x in range(1, last_page_no):
-        page_num = x
-        time.sleep(SLEEP_TIME)
-        print("I'm sleeping " + str(SLEEP_TIME))
-        log = '\n ' + brand + ' için ' + str(page_num) + '. sayfa okunuyor...\n'
-        print(log)
-
-        page_numbered_url = brand_url + '?page=' + str(page_num)
-        page_source = simple_get(page_numbered_url)
-        page_soup = BeautifulSoup(html_minify(page_source), 'html.parser')
-
-        item_pages = []
-
-        """
         Her sayfa ziyaret edilir
         Sayfalar diziye alınır
         """
+    find_all_card_url = page_soup.find_all('p', {'class': 'card-text'})
+    for complaint in find_all_card_url:
+        """ contents_ = complaint.contents
+         href_ = contents_[1]
+         item_pages.append(href_)"""
+        for a in complaint.find_all('a', href=True):
+            item_pages.append(a['href'])
+    return item_pages
+def get_all_items_url(brand):
+    brand_url = domain + '/' + brand
 
-        find_all_card_url = page_soup.find_all('p', {'class': 'card-text'})
-        for complaint in find_all_card_url:
-           """ contents_ = complaint.contents
-            href_ = contents_[1]
-            item_pages.append(href_)"""
-           for a in complaint.find_all('a', href=True):
+    brand_source = simple_get(brand_url)
+    brand_soup = BeautifulSoup(html_minify(brand_source), 'html.parser')
 
-                item_pages.append( a['href'])
+    last_page_no = get_page_num(brand_soup)
+    items_url = []
+    print(last_page_no)
+    for x in range(1, 2):
+        item_pages = get_item_url(x,brand_url)
+        items_url=items_url+item_pages
+    return items_url
 
-        for page in item_pages:
+headers = [ "sikayet_url", "title", "description", "views", "tags","date"]
 
-            sikayet_no = sikayet_no + 1
-
-            """time.sleep(2.4)
-
-            Diziden sayfalar çağırılır
-            Şikayetler tek tek ziyaret edilir
-            Şikayet sayfası pars edilir
-            """
-
-            sikayet_url = domain + page
-            print('Okunan sayfa: ' + sikayet_url + '...')
-            sikayet_source = simple_get(sikayet_url)
-            sikayet_soup = BeautifulSoup(html_minify(sikayet_source), 'html.parser')
-
-            """
-            İndirilen kaynaktan
-            İstenen veriler değişkenlere atanır
-            """
-
-            title = sikayet_soup.find('title')
-            if title != None:
-                title = title.text.strip('\n')
-                title = title.replace(' - Şikayetvar', '')
-
-            description = sikayet_soup.find('div', {'class': 'card-text'})
-            if description != None:
-                description = description.text.strip('\n')
-
-            date = sikayet_soup.find('span', {'class': 'info-icn time-tooltip'})
-            if date != None:
-                date = date['title']
-
-            views = sikayet_soup.find('span', {'class': 'js-view-count'})
-            if views != None:
-                find = views.find('span', {'class': 'count'})
-                views = find.text
-
-            try:
-                hashtags = sikayet_soup.find_all('div', {'class': 'detailComp-tags clearfix'})
-                tags = []
-                for a in hashtags[0].find_all('a', href=True):
-                    tags.append(a['title'])
-            except:
-                print("An exception occurred")
+def printFileXlsx(file_name, columns, result):
+    df = pd.DataFrame(result, columns=columns)
+    df.to_excel(file_name+ ".xlsx", index=False, encoding='utf-8')
 
 
+from multiprocessing import Pool
+
+brand = "garanti-bbva"
+
+pages_result=[]
+def printqueue(queue, data):
+    queue.put(data)
+    return queue
+
+def writeToDB( resultArticleDetails):
+    # Extract single elements
+    for value in resultArticleDetails.values():
+        str_articlenumber = value["sikayet_url"]
+        str_URL = value['sikayet_url']
+        str_title = value['title']
+        str_views = value['views']
+        str_pubdate = value['date']
+        str_text = value['description']
+        str_brand=value['brand']
+        try:
+            int_views = value['views']
+        except:
+            int_views = 0
+        Tag_list = value['tags']
+        # Create new Article Entity
+        Article = datastore.Entity(client.key('Article_ID', str_articlenumber), exclude_from_indexes=['Text'])
+        Article.update({
+            "URL": str_URL,
+            "Title": str_title,
+            "Views": str_views,
+            "PublishingDate": str_pubdate,
+            "Text": str_text,
+            "Claps": int_views,
+            "Tags": Tag_list,
+
+            "Brand": str_brand
+        })
+        client.put(Article)
+    return (True)
+
+import time
+
+if __name__ == '__main__':
+    result=[]
 
 
-            row = [sikayet_no, brand, title, description, date, views,tags,sikayet_url]
-            scraped_data.append(row)
+    start = time.time()
+    print("hello")
 
-        writeFile(filename=brand,data=scraped_data)
 
-print('Tüm işlemler bitti!')
+    brand_url = domain + '/' + brand
+
+    brand_source = simple_get(brand_url)
+    brand_soup = BeautifulSoup(html_minify(brand_source), 'html.parser')
+
+    last_page_no = get_page_num(brand_soup)
+    items_url = []
+    print(last_page_no)
+    for x in range(1, 3):
+        item_pages = get_item_url(x,brand_url)
+        print(item_pages)
+        with Pool(3) as p:
+            print(p.map(extract_data, item_pages))
+    end = time.time()
+    print(end - start)
+"""  alllinks=get_all_items_url(brand)
+    for i in alllinks:
+        extract_data(i)
+"""

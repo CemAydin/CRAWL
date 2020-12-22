@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "akbank-298918",
+  "private_key_id": "a29f0a94802ea586a2bbac8fdf09a2d5695fd68e",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQDEY1j5OMap4/ul\nuUfeMY6HA+nlZ5VRrtVP+N9VLZOyHT+yoUtq5Ap+ZWQc1dGW3CWNe/a9N98w+US2\nA9h/MC/yd08yAqqNbBgudEnaPR6T7u2wkPiGoPqxc5FjhtIhP1q+naUJeqU8KsEg\nm4HmCUh1JUyv1IKyqVHtO3H9kPpELUBg39zKUitcPx5/8nGerq5eNRunDeqUXHAU\nJtbEodDiCBjEYWgCu7buijiFdhmitcoiUo+lcJdowhTt0adWP9oSEYm0cQen6fiz\nu59yTeSrl2ddprhidq0bGzTC2cpvm4x42tR96KiIBSdx6h8j6fddkZE5eIYgyTKU\ne0tIPwlZAgMBAAECggEAV5eSExJ6NUMstdVmUxmaXujldT7WkCihFrrDbbvW0M4P\n343mU+YjMg3p8ZyCjz1geHLucaXOZAsB1QbxFIV7FTOWvJEI3ev0+x8941t4XHXo\nSOTYHEAHoIcRtSjoZxDZWgR5HDm6IhRVsEP704yXZzx8MD5iDurLUjq91GFJ5oba\nUT8bP4GNmuzaUthVFeX59s+eYxGhcUbCeHT6yTC3qKKCQwnHMklZCb7tksL1muLF\nCl9Js3KWVVi3vwhTn0VZ9eAmW+Oe2KeuapK5TmDEKzOZZmSHdURQeCNfKD+VihPC\nek9+Ok9iIyt1IA34+iiNrszMRb0U5gH8Cq1EvEmJ8wKBgQDkBlWnLn8Jjj/2AvT0\nRnMB30kGGubujDoNh4hEm6yKrfydJQz9gYLoEkf6wfID/NiIC/PsmZyHbwxtZuQw\n9nV1UKK3cmoHTGS27Ez15KyYPh9jvJikBF1Y8qhatJ2gZZqaSUNe2o80cDGfaseU\nIFXGFIWBcK5i6EoDv3osqrxulwKBgQDce2MoW10Hn3Yp6f/VPxaiFrtzC8TbDNBN\nlK+aYvmsC/VIR0E76EtMNCZTqVDxi2T3z0u7b2LyQX1QQ8ivsbwdtXtO4jGBlDpq\nQHUfVGDo1QrraLTxM6NMwOirlJJM/sBffTxYeKu8MVDH7QtIFHtDq2vWlw3o8/4x\n7lNJpag1jwKBgBTB9t4nP21RQ8VTc5UhLKsI9o7VuBwTK927bs5AFa7yM8LicpJJ\nTe9uapsLOMrgI54O6H+rZDJ4C3uSGEfUx9CMLKPiiIBtleWJEWB5FrUtQpJDwul7\ndDv6qxTGyGqnlTFiZf2mi87MP9gxUkXLw8MqbxTfeyCJ4OMCdU7HpCu1AoGAXSHV\nkb99/XFTNYM9aLNceR1HEuKexbSU7KBoyLsUIaNveZd3q7mEzOyeX+p+YXlzLeYn\nZEY5soENUPFA/U4DWz1El96d8NFPF4CguJoo0VDkaunwvI4GZa562bdJUTKuyecZ\nrXlTeYwPRlQP1uOn6b6oL53g50zhS/ASyGIsOmsCgYBszEraMXo13uNiVdDUErQS\nKEoFwHOY438DiIaOfqrT9NJ585gGdyuHORrqqnAZS0JXAgkmkTKTHGjYiSRfPrmt\nUyBfKXXZAqQWcNpUX8vPUOQObCP+4OlIDYd3qj6jffebgsSYU7GQXJtTZPWR2Adp\n4riS9hPvZM8oRKXfgMog/Q==\n-----END PRIVATE KEY-----\n",
+  "client_email": "test-36@akbank-298918.iam.gserviceaccount.com",
+  "client_id": "118251224253326147386",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/test-36%40akbank-298918.iam.gserviceaccount.com"
+}
